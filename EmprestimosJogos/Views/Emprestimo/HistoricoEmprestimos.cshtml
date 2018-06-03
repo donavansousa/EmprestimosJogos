@@ -1,0 +1,40 @@
+﻿@model List<EmprestimosJogos.Models.emprestimo_jogo>
+@{
+    ViewBag.title="Histórico de Empréstimos";
+}
+    <div style="margin-top:5%">
+        <h2>@ViewBag.Title</h2>
+        <hr />
+        <br />
+        <fieldset>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Amigo</th>
+                        <th scope="col">Jogo</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Situação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var c in Model){
+                     <tr>
+                         <td>@(c.Amigo.cpf) - @(c.Amigo.nome)</td>
+                         <td>@c.Jogo.titulo</td>
+                         <td>@c.data.ToString("dd/MM/yyyy HH:mm")</td>
+                         <td>
+                            @if (c.status == "e")
+                            {
+                                <label>Emprestado</label>
+                            }
+                            else
+                            {
+                                <label>Devolvido</label>
+                            }
+                         </td>
+                     </tr>
+                    }
+                </tbody>
+            </table>
+        </fieldset>
+    </div>

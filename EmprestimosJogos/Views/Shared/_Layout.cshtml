@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Sistema de Empréstimos</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.mask.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Sistemas de Empréstimos", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            @if (Session["usuarioLogado"] != null)
+            {
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Início", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Cadastro de Jogos", "ListaJogos", "Jogo")</li>
+                    <li>@Html.ActionLink("Cadastro de Amigos", "ListaAmigos", "Amigo")</li>
+                    <li>@Html.ActionLink("Cadastro de Empréstimos", "ListaEmprestimos", "Emprestimo")</li>
+                    <li>@Html.ActionLink("Histórico de Empréstimos", "HistoricoEmprestimos", "Emprestimo")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+            }
+        </div>
+    </div>
+    <div class="container body-content">
+        <div id="mensagens" align="center">
+            <br/>
+            @if (TempData["error"] != null)
+            {
+                <div align="center" class="alert alert-danger fade in" style="width:40%">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <b>@TempData["error"]</b>
+                </div>
+            }
+            else if (TempData["warning"] != null)
+            {
+                <div align="center" class="alert alert-warning fade in" style="width:40%">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <b>@TempData["warning"]</b>
+                </div>
+            }
+            else if (TempData["sucess"] != null)
+            {
+                <div align="center" class="alert alert-success fade in" style="width:40%">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <b>@TempData["sucess"]</b>
+                </div>
+            }
+        </div>
+
+        @RenderBody()
+        <hr />
+        <footer>
+            <div align="center">
+                <p>&copy; @DateTime.Now.Year - Sistema de Empréstimos</p>
+            </div>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+<script>
+    window.setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 4000);
+
+
+</script>

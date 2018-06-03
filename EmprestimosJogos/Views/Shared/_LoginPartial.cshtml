@@ -1,0 +1,7 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Session["usuarioLogado"] != null)
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Sair", "Logout", "Usuario", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

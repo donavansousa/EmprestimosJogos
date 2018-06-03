@@ -1,0 +1,22 @@
+﻿@model EmprestimosJogos.Models.emprestimo_jogo
+    @{
+        ViewBag.Title = "Novo Empréstimo";
+    }
+
+<br/>
+        <div align="right">
+            @Html.ActionLink("Voltar", "ListaEmprestimos", "Emprestimo",new { @class= "btn btn-info form-horizontal", role = "form" })<br /><br />
+        </div>
+        <h2>@ViewBag.Title</h2>
+        <hr/>
+        <br/>
+        <fieldset>
+            @using (Html.BeginForm()) { 
+                @Html.DropDownList("idAmigo",null, "Selecione o Amigo...",new { @class = "form-control" })
+                <br /><br />
+                @Html.DropDownList("idJogo", null,"Selecione o Jogo...", new { @class = "form-control" })
+                <br /><br />
+                <input type="submit" class="btn btn-primary" value="Salvar"/>
+            }
+        </fieldset>
+

@@ -1,0 +1,65 @@
+﻿@model List<EmprestimosJogos.Models.Jogo>
+@{
+    ViewBag.title="Lista de Jogos";
+}
+    <div style="margin-top:5%">
+        <div align="right">  
+          @Html.ActionLink("Adicionar Jogo", "AdicionaJogo","Jogo",null, new { @class = "btn btn-primary" })
+        </div>
+        <h2>@ViewBag.Title</h2>
+        <hr />
+        <br />
+        <fieldset>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Título</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Opções</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var c in Model){
+                     <tr>
+                         <td>@c.titulo</td>
+                         <td>@c.descricao</td>
+                         <td>
+                             <a href="EditaJogo/@c.id" class="btn btn-info" >Editar</a>&nbsp;&nbsp;
+                             <button type="button" class="btn btn-danger" onclick="deleteModal(@c.id,'@c.titulo')" data-toggle="modal" data-target="#exampleModalCenter">
+                                 Excluir
+                             </button>
+                         </td>
+                     </tr>
+                    }
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+<!-- Modal Delete -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        @using (Html.BeginForm("ExcluiJogo", "Jogo", FormMethod.Post))
+        {
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Excluir Jogo</h3>
+                </div>
+                <div class="modal-body">
+                    <label>Tem certeza que deseja excluir o jogo:&nbsp;&nbsp; </label><label id="txtExcluir" style="color:red"></label>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" id="idExcluir" name="idExcluir" />
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                    <button type="submit" class="btn btn-primary">Sim</button>
+                </div>'
+            </div>
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+    function deleteModal(id,jogo) {
+        $('#txtExcluir').html(jogo);
+        $('#idExcluir').val(id);
+    }
+</script>

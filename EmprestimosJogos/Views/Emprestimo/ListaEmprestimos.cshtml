@@ -1,0 +1,99 @@
+﻿@model List<EmprestimosJogos.Models.emprestimo_jogo>
+@{
+    ViewBag.title="Lista de Empréstimos";
+}
+    <div style="margin-top:5%">
+        <div align="right">  
+          @Html.ActionLink("Adicionar Empréstimo", "AdicionaEmprestimo","Emprestimo",null, new { @class = "btn btn-primary" })
+        </div>
+        <h2>@ViewBag.Title</h2>
+        <hr />
+        <br />
+        <fieldset>
+            <table class="tabelas table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Amigo</th>
+                        <th scope="col">Jogo</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Opções</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var c in Model){
+                     <tr>
+                         <td>@(c.Amigo.cpf) - @(c.Amigo.nome)</td>
+                         <td>@c.Jogo.titulo</td>
+                         <td>@c.data.ToString("dd/MM/yyyy HH:mm")</td>
+                         <td>
+                             <a href="EditaEmprestimo/@c.id" class="btn btn-info" >Editar</a>&nbsp;&nbsp;
+                             <button type="button" class="btn btn-danger" onclick="deleteModal(@c.id,'@c.Jogo.titulo','@c.Amigo.nome')" data-toggle="modal" data-target="#exampleModalCenter">
+                                 Excluir
+                             </button>&nbsp;&nbsp;
+                             <button type="button" class="btn btn-warning" onclick="devolutionModal(@c.id,'@c.Jogo.titulo','@c.Amigo.nome')" data-toggle="modal" data-target="#exampleModalDevolutionCenter">
+                                 Devolver
+                             </button>
+                         </td>
+                     </tr>
+                    }
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+<!-- Modal Delete -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        @using (Html.BeginForm("ExcluiEmprestimo", "Emprestimo", FormMethod.Post))
+        {
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Excluir Empréstimo</h3>
+            </div>
+            <div class="modal-body">
+                <label>Tem certeza que deseja excluir o empréstimo:&nbsp;&nbsp; </label><label id="txtExcluir" style="color:red"></label> 
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="idExcluir" name="idExcluir"/>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                <button type="submit" class="btn btn-primary">Sim</button>
+            </div>'
+        </div>
+        }
+    </div>
+</div>
+<!-- Modal Devolution -->
+<div class="modal fade" id="exampleModalDevolutionCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        @using (Html.BeginForm("DevolverEmprestimo", "Emprestimo", FormMethod.Post))
+        {
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Devolver Empréstimo</h3>
+                </div>
+                <div class="modal-body">
+                    <label>Tem certeza que deseja devolver empréstimo:&nbsp;&nbsp; </label><label id="txtDevolution" style="color:red"></label>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" id="idDevolucao" name="idDevolucao" />
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                    <button type="submit" class="btn btn-primary">Sim</button>
+                </div>'
+            </div>
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+    function deleteModal(id,jogo,amigo){
+        $('#txtExcluir').html(amigo+' - '+jogo);
+        $('#idExcluir').val(id);
+    }
+
+    function devolutionModal(id, jogo, amigo) {
+        $('#txtDevolution').html(amigo + ' - ' + jogo);
+        $('#idDevolucao').val(id);
+    }
+
+   
+</script>

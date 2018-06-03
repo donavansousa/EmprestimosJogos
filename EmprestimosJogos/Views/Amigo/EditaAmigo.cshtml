@@ -1,0 +1,41 @@
+﻿@model EmprestimosJogos.Models.Amigo
+@{
+    ViewBag.Title = "Edita Amigo";
+}
+
+<br />
+<div align="right">
+    @Html.ActionLink("Voltar", "ListaAmigos", "Amigo", new { @class = "btn btn-info" })<br /><br />
+</div>
+<h2>@ViewBag.Title</h2>
+<hr />
+<br />
+<fieldset>
+    @using (Html.BeginForm())
+    {
+        @Html.Label("Nome")<br />
+                @Html.TextBoxFor(m => m.nome, new { style = "width:50%", required = "required", @class = "form-control" })
+                <br /><br />
+                @Html.Label("CPF")<br />
+                @Html.TextBoxFor(m => m.cpf, new { required = "required", @class = "form-control" })
+                <br /><br />
+                @Html.Label("Email")<br />
+                @Html.TextBoxFor(m => m.email, new { required = "required", @class = "form-control", pattern = "[^ @]*@[^ @]*" })
+                <br /><br />
+                @Html.Label("telefone")<br />
+                @Html.TextBoxFor(m => m.telefone, new { @class = "form-control" })
+                <br /><br />
+                @Html.Label("Celular")<br />
+                @Html.TextBoxFor(m => m.celular, new { required = "required", @class = "form-control" })<br /><br />
+                <input type="submit" class="btn btn-primary" value="Salvar" />
+    }
+</fieldset>
+
+<script type="text/javascript">
+    $("#cpf").mask("999.999.999-99");
+    $("#cpf").mask("999.999.999-99");
+
+    $("#telefone").mask("(99) 9999-9999");
+    $("#celular").mask("(99) 99999-9999");
+
+</script>

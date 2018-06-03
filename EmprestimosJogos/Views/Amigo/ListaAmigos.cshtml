@@ -1,0 +1,70 @@
+﻿@model List<EmprestimosJogos.Models.Amigo>
+@{
+    ViewBag.title="Lista de Amigos";
+}
+    <div style="margin-top:5%">
+        <div align="right">  
+          @Html.ActionLink("Adicionar Amigo", "AdicionaAmigo","Amigo",null, new { @class = "btn btn-primary" })
+        </div>
+        <h2>@ViewBag.Title</h2>
+        <hr />
+        <br />
+        <fieldset>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">CPF</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Telefone</th>
+                        <th scope="col">Celular</th>
+                        <th scope="col">Opções</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var c in Model){
+                     <tr>
+                         <td>@c.nome</td>
+                         <td>@c.cpf</td>
+                         <td>@c.email</td>
+                         <td>@c.telefone</td>
+                         <td>@c.celular</td>
+                         <td>
+                             <a href="EditaAmigo/@c.id" class="btn btn-info" >Editar</a>&nbsp;&nbsp;
+                             <button type="button" class="btn btn-danger" onclick="deleteModal(@c.id,'@c.nome')" data-toggle="modal" data-target="#exampleModalCenter">
+                                 Excluir
+                             </button></td>
+                     </tr>
+                    }
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+<!-- Modal Delete -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        @using (Html.BeginForm("ExcluiAmigo", "Amigo", FormMethod.Post))
+        {
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Excluir Amigo</h3>
+                </div>
+                <div class="modal-body">
+                    <label>Tem certeza que deseja excluir o amigo:&nbsp;&nbsp; </label><label id="txtExcluir" style="color:red"></label>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" id="idExcluir" name="idExcluir" />
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                    <button type="submit" class="btn btn-primary">Sim</button>
+                </div>'
+            </div>
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+    function deleteModal(id,amigo){
+        $('#txtExcluir').html(amigo);
+        $('#idExcluir').val(id);
+    }
+</script>

@@ -1,0 +1,26 @@
+﻿@model EmprestimosJogos.Models.Jogo
+    @{
+        ViewBag.Title = "Novo Jogo";
+    }
+
+<br/>
+    <div align="right">
+    @Html.ActionLink("Voltar", "ListaJogos", "Jogo", new { @class = "btn btn-info" })<br /><br />
+</div>
+<h2>@ViewBag.Title</h2>
+<hr />
+<br />
+
+<fieldset>
+    @using (Html.BeginForm())
+            {
+        @Html.Label("Titulo")<br />
+                @Html.TextBoxFor(m => m.titulo, new { style = "width:50%", required = "required", @class = "form-control" })
+                <br /><br />
+                @Html.Label("Descrição")<br />
+                @Html.TextAreaFor(m => m.descricao, new { required = "required", @class = "form-control" })
+                <br /><br />
+                <input type="submit" class="btn btn-primary" value="Salvar" />
+    }
+</fieldset>
+
